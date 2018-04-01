@@ -4,10 +4,10 @@ import java.io.*;
 
 
 public class dbload {
-    
-    private static String filelocationz;
-    private static int pagesize;
 
+    private static String filelocationz;
+    private static int pagesize = 4096;
+    private static int counter = 0;
 
 
     public static void main(String[] args) throws IOException {
@@ -26,10 +26,11 @@ public class dbload {
                 }
             }
         }
-        
+        loadCSV();
+
     }
-    
-    
+
+
     private static boolean isStringInt(String s)
     {
         try
@@ -47,6 +48,7 @@ public class dbload {
 
 
         try {
+            //BufferedReader br = new BufferedReader(new FileReader("E:\\Martin\\RMIT\\DATABASE\\A1\\derby.csv"));
             BufferedReader br = new BufferedReader(new FileReader(filelocationz));
             String line;
 
@@ -56,14 +58,15 @@ public class dbload {
                             new FileOutputStream("heap." + pagesize));
 
             //StringBuilder builder;
+       
             while ((line = br.readLine()) != null) {
-                
+
                 String result[] = line.split("\t");
 
                 for(int j=0; j<result.length;j++){
                     byte[] byt = "".getBytes();
 
-                    if(result.length<=2 ){
+                    if(result.length <=2 ){
                         byt= result[j].getBytes();
                     }
                     if(result.length>=3){
@@ -72,7 +75,7 @@ public class dbload {
                     if(result.length>=4){
                         byt = result[j].getBytes();
                     }
-                    if(result.length>=5){
+                     if(result.length>=5){
                         byt = result[j].getBytes();
                     }
                     if(result.length>=6){
@@ -84,16 +87,18 @@ public class dbload {
                     if(result.length>=8){
                         byt = result[j].getBytes();
                     }
-                    if(result.length>=9){
-                        byt = result[j].getBytes();
-                    }
 
-                    if(byt.length != 0) {
-                        for (int i = 0; i < byt.length; i++) {
+                    for (int i = 0; i < byt.length; i++) {
 
-                            dataOutputStream.writeShort(byt[i]);
+                        dataOutputStream.writeShort(byt[i]);
+                        counter += dataOutputStream.size();
+                        if(counter >= pagesize){
+                            dataOutputStream.writeInt(10);
+
+                            counter=0;
                         }
                     }
+
                     dataOutputStream.writeInt(0);
                 }
 
@@ -105,7 +110,7 @@ public class dbload {
             br.close();
 
         }catch (Exception ex){
-            System.out.println("File Not Found");
+            System.out.println("ERROR");
         }
 
     }
