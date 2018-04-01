@@ -34,7 +34,7 @@ public class dbquery {
 
     private static void readd(String name) throws IOException{
 
-        DataInputStream test = new DataInputStream(new FileInputStream("./heap.1024"));
+        DataInputStream test = new DataInputStream(new FileInputStream("./heap."+pagesize));
 
 
         StringBuilder sb = new StringBuilder();
