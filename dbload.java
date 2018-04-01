@@ -57,7 +57,7 @@ public class dbload {
 
             //StringBuilder builder;
             while ((line = br.readLine()) != null) {
-                System.out.println("Test");
+                
                 String result[] = line.split("\t");
 
                 for(int j=0; j<result.length;j++){
