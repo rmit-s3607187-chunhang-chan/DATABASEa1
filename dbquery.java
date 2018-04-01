@@ -39,17 +39,17 @@ public class dbquery {
 
     private static void readd() throws IOException{
         //System.out.println("heap."+ Integer.toString(pagesize));
-        DataInputStream test = new DataInputStream(new FileInputStream("heap."+ Integer.toString(pagesize)));
+        DataInputStream in = new DataInputStream(new FileInputStream("heap."+ Integer.toString(pagesize)));
 
 
         StringBuilder sb = new StringBuilder();
         int ch;
-
+// READS CHARACTER PER CHARACTER
         for (int i = 0; i < 10000; i++) {
             while (true){
 
 
-                ch = test.read();
+                ch = in.read();
 
                 if (ch <= 0){
                     break;
