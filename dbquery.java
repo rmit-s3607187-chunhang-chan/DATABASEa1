@@ -49,7 +49,7 @@ public class dbquery {
                     break;
                 }else{
                     if(ch == 5){            // 5 is my delimiter
-                        if(sb.toString().toLowerCase().contains(name)){
+                        if(sb.toString().toLowerCase().contains(name.toLowerCase())){
                             System.out.println(sb.toString());
                         }
                         sb.setLength(0);            // reset
